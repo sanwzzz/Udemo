@@ -15,42 +15,34 @@ import java.util.stream.Collectors;
 public class RectangleCut {
 
     public static void main(String[] args) {
-        //外层的高 宽
-        int width = 800;
-        int height = 600;
-        LinkedList<Line> lines = new LinkedList<>();
-        List<Shape> shapes = new LinkedList<>();
 
-//         切割线列表 从右到左 从上到下 有序排列
-//        lines = new LinkedList<>();
-//        lines.add(new Line(550, 0, 550, 600));
-//        lines.add(new Line(0, 500, 550, 500));
-//        lines.add(new Line(0, 450, 550, 450));
-//        lines.add(new Line(450, 0, 450, 450));
-//
-//        shapes = searchShape(new Integer(width), new Integer(height), lines);
-//        for (Shape shape : shapes) {
-//            System.out.println(shape);
-//        }
-//        createHtml(shapes);
-//
-//        System.out.println("=========================");
-//
-        width = 1200;
-        height = 1000;
-        // 切割线列表 有序
-        lines = new LinkedList<>();
-        lines.add(new Line(500, 0, 500, 1000));
-        lines.add(new Line(0, 500, 1200, 500));
+        List<String> sources = FileUtil.readLines("source.txt", "utf-8");
+        //外层的高 宽
+        int width = 0, height = 0;
+        LinkedList<Line> lines = new LinkedList<>();
+
+
+        for (String source : sources) {
+            if (width == 0) {
+                String[] split = source.split(",");
+                width = Integer.parseInt(split[0]);
+                height = Integer.parseInt(split[1]);
+                continue;
+            }
+            String[] split = source.split(",");
+            //         切割线列表 从右到左 从上到下 有序排列
+            lines.add(new Line(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]), Integer.parseInt(split[3])));
+        }
+
+
+
+        List<Shape> shapes = new LinkedList<>();
 
         shapes = searchShape(new Integer(width), new Integer(height), lines);
         for (Shape shape : shapes) {
             System.out.println(shape);
         }
-
-        shapes.add(Shape.create(0, 0, 0, height, width, height, width, 0));
         createHtml(shapes);
-
     }
 
     public static List<Shape> searchShape(int width, int height, List<Line> lines){

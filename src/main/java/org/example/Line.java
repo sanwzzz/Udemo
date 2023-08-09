@@ -1,5 +1,6 @@
 package org.example;
 
+import cn.hutool.core.convert.Convert;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -42,6 +43,11 @@ public class Line implements Serializable,Cloneable {
         minY = line.minY;
         maxY = line.maxY;
     }
+
+    public int length() {
+        return Convert.toInt(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+    }
+
 
     public Line clone() throws CloneNotSupportedException {
         return (Line) super.clone();
