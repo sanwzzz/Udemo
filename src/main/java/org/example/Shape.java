@@ -88,6 +88,9 @@ public class Shape {
         sb.append("<div style=\"position: absolute; left: ").append(minX).append("px; top: ").append(minY).append("px; width: ").append(maxX-minX).append("px; height: ").append(maxY-minY)
                 .append("px; border: 1px solid #").append(Integer.toHexString((int) (Math.random() * 0xFFFFFF))).append(";\">");
         sb.append("</div>");
+        //求出最长的边 且x靠近原点的值
+
+
 
         return sb.toString();
     }
