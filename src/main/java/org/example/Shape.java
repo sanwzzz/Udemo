@@ -83,13 +83,13 @@ public class Shape {
     public String toDiv() {
         //求出四个边的极限
         int minX = lines.stream().mapToInt(Line::getMinX).min().getAsInt();
-        int minY = lines.stream().mapToInt(Line::getMinY).min().getAsInt();
         int maxX = lines.stream().mapToInt(Line::getMaxX).max().getAsInt();
+        int minY = lines.stream().mapToInt(Line::getMinY).min().getAsInt();
         int maxY = lines.stream().mapToInt(Line::getMaxY).max().getAsInt();
 
         StringBuilder sb = new StringBuilder();
         sb.append("<div style=\"position: absolute; left: ").append(minX).append("px; top: ").append(minY).append("px; width: ").append(maxX-minX).append("px; height: ").append(maxY-minY)
-                .append("px; border: 1px solid #").append(Integer.toHexString((int) (Math.random() * 0xFFFFFF))).append(";\">");
+                .append("px; border: 1px solid #").append(Integer.toHexString((int) (Math.random() * 0xFFFFFF))).append(";\">").append(++count);
 
         //求出最长的边 且x靠近原点的值 以及短边的夹角
         Line maxLineOr = null;
@@ -132,23 +132,22 @@ public class Shape {
                 }
             }
         }
-        sb.append("</div>");
 
         //长边是否是水平线
         boolean maxIsHorizontal  = Objects.equals(maxLineOr.getY1(), maxLineOr.getY2());
-        System.out.println("长边信息: " + maxLineOr + "短边信息: " + minLineOr + "长边是否是水平线: " + maxIsHorizontal);
 
         if (maxIsHorizontal){
             //长边水平
-            sb.append("<div style=\"position: absolute; left: ").append(maxLineOr.getMinX()+20).append("px; top: ").append(minLineOr.getMaxY()-30).append("px; width: ").append(30).append("px; height: ").append(15)
+            sb.append("<div style=\"margin-left: ").append(20).append("px; margin-top: ").append(minLineOr.length()-60).append("px; width: ").append(30).append("px; height: ").append(15)
                     .append("px; border: 2px solid #499C5C").append(";\">");
         }else {
             //长边是垂直线
-//            sb.append("<div style=\"position: absolute; left: ").append(maxLineOr.getMinX()+20).append("px; top: ").append(maxLineOr.getMaxY()-50).append("px; width: ").append(15).append("px; height: ").append(30)
-//                    .append("px; border: 2px solid #499C5C").append(";\">");
+            sb.append("<div style=\"margin-left: ").append(20).append("px; margin-top: ").append(maxLineOr.length()-80).append("px; width: ").append(15).append("px; height: ").append(30)
+                    .append("px; border: 2px solid red").append(";\">");
 
         }
-        sb.append(++count);
+        sb.append(count).append("c");
+        sb.append("</div>");
 
         sb.append("</div>");
 

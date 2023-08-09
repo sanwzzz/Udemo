@@ -38,10 +38,10 @@ public class Line implements Serializable,Cloneable {
         this.x2=line.x2;
         this.y2=line.y2;
 
-        minX = line.minX;
-        maxX = line.maxX;
-        minY = line.minY;
-        maxY = line.maxY;
+        minX = Math.min(x1, x2);
+        maxX = Math.max(x1, x2);
+        minY = Math.min(y1, y2);
+        maxY = Math.max(y1, y2);
     }
 
     public int length() {
@@ -81,20 +81,24 @@ public class Line implements Serializable,Cloneable {
     public void setX1(int x1) {
         this.x1 = x1;
         this.maxX = Math.max(x1, x2);
+        this.minX = Math.min(x1, x2);
     }
 
     public void setY1(int y1) {
         this.y1 = y1;
         this.maxY = Math.max(y1, y2);
+        this.minY = Math.min(y1, y2);
     }
 
     public void setX2(int x2) {
         this.x2 = x2;
         this.maxX = Math.max(x1, x2);
+        this.minX = Math.min(x1, x2);
     }
 
     public void setY2(int y2) {
         this.y2 = y2;
         this.maxY = Math.max(y1, y2);
+        this.minY = Math.min(y1, y2);
     }
 }
