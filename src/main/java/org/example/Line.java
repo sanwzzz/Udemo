@@ -2,6 +2,8 @@ package org.example;
 
 import lombok.Data;
 
+import java.util.Objects;
+
 @Data
 public class Line {
 
@@ -36,5 +38,19 @@ public class Line {
                 ", x2=" + x2 +
                 ", y2=" + y2 +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Line)) return false;
+        Line line = (Line) o;
+        return x1 == line.x1 && y1 == line.y1 && x2 == line.x2 && y2 == line.y2 && maxX == line.maxX && minX == line.minX && maxY == line.maxY && minY == line.minY;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x1, y1, x2, y2, maxX, minX, maxY, minY);
     }
 }

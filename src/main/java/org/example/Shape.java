@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class Shape {
 
@@ -37,5 +38,57 @@ public class Shape {
         return "Shape{" +
                 "lines=" + lines +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Shape)) return false;
+        Shape shape = (Shape) o;
+        return Objects.equals(lines, shape.lines);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lines);
+    }
+
+    /**
+     * 返回图形的长
+     * @return
+     */
+    public int getHeight(){
+        int minY = lines.stream().mapToInt(Line::getMinY).min().getAsInt();
+        int maxY = lines.stream().mapToInt(Line::getMaxY).max().getAsInt();
+        return maxY - minY;
+    }
+
+    /**
+     * 返回图形的宽
+     * @return
+     */
+    public int getWidth() {
+        int minX = lines.stream().mapToInt(Line::getMinX).min().getAsInt();
+        int maxX = lines.stream().mapToInt(Line::getMaxX).max().getAsInt();
+        return maxX - minX;
+    }
+
+    /**
+     * 创建Div用来描述图形
+     */
+    public String toDiv() {
+        //求出四个边的极限
+        int minX = lines.stream().mapToInt(Line::getMinX).min().getAsInt();
+        int minY = lines.stream().mapToInt(Line::getMinY).min().getAsInt();
+        int maxX = lines.stream().mapToInt(Line::getMaxX).max().getAsInt();
+        int maxY = lines.stream().mapToInt(Line::getMaxY).max().getAsInt();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div style=\"position: absolute; left: ").append(minX).append("px; top: ").append(minY).append("px; width: ").append(maxX-minX).append("px; height: ").append(maxY-minY)
+                .append("px; border: 1px solid #").append(Integer.toHexString((int) (Math.random() * 0xFFFFFF))).append(";\">");
+        sb.append("</div>");
+
+        return sb.toString();
     }
 }
