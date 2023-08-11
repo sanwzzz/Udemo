@@ -6,6 +6,7 @@ import cn.hutool.core.io.FileUtil;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,9 +15,13 @@ import java.util.stream.Collectors;
 
 public class RectangleCut {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException {
 
-        List<String> sources = FileUtil.readLines("source.txt", "utf-8");
+        // 获取同级目录的source.txt文件路径
+        String filePath = new File(RectangleCut.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParent() + "/source.txt";
+        List<String> sources = FileUtil.readLines(filePath, "utf-8");
+
+
         //外层的高 宽
         int width = 0, height = 0;
         LinkedList<Line> lines = new LinkedList<>();
